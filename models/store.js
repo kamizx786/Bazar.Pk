@@ -16,11 +16,13 @@ const storeSchema = new Schema(
       maxlength: [2000, "Too Long"],
     },
     main_pic: {
-      type: String,
+      url: String,
+      publicId:String,
       required: true,
     },
     cover_pic: {
-      type: String,
+      url: String,
+      publicId:String,
       required: true,
     },
     timings: {

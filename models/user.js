@@ -20,10 +20,10 @@ const userSchema = new Schema(
     whatsapp: {
       type: Number,
     },
-    // following:{
-    //     type:Schema.Types.ObjectId,
-    //     ref:"Store"
-    // },
+    following:{
+        type:Schema.Types.ObjectId,
+        ref:"Store"
+    },
     stripe_account_id: "",
     stripe_seller: {},
     stripe_session: {},
