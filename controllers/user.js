@@ -11,7 +11,7 @@ const SendEmail = (mailOptions) => {
     secure: true, // use SSL
     auth: {
       user: "kamranalizx491@gmail.com",
-      pass: "wfpbxfpxicttagvi",
+      pass: process.env.PASS,
     },
   });
   // Send the email
