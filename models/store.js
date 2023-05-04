@@ -39,17 +39,23 @@ const storeSchema = new Schema(
       type: Number,
       required: true,
     },
-    address: {
+    Streetaddress: {
+      type: String,
+    },
+   Country: {
+      type: String,
+    },
+   City: {
       type: String,
     },
     location: {
       type: "Point",
       GeolocationCoordinates: [],
     },
-    // category:{
-    //         type:Schema.Types.ObjectId,
-    //          ref:"Category"
-    //      },
+    category:{
+            type:Schema.Types.ObjectId,
+             ref:"Category"
+         },
     user:{
             type:Schema.Types.ObjectId,
              ref:"User"
@@ -59,7 +65,7 @@ const storeSchema = new Schema(
               ref:"User"
     },
     sociallinks:[
-            {
+        {
         facebook:"",
         insta:""
         }
@@ -70,7 +76,10 @@ const storeSchema = new Schema(
             type:Schema.Types.ObjectId,
               ref:"User"
         }
-    ]
+    ],
+    stripe_account_id: "",
+    stripe_seller: {},
+    stripe_session: {},
   },
   { timestamps: true }
 );

@@ -14,30 +14,35 @@ const userSchema = new Schema(
       required: true,
       trim: true,
     },
+    password: {
+      type: String,
+    },
+    status: {
+      type: String,
+      default: "Not Confirmed",
+    },
     role: {
+      type: String,
       default: "Buyer",
+    },
+    secret: {
+      type: String,
     },
     whatsapp: {
       type: Number,
     },
-    following:{
-        type:Schema.Types.ObjectId,
-        ref:"Store"
+
+    wishlist: {
+      type: Schema.Types.ObjectId,
+      ref: "Product",
     },
-    stripe_account_id: "",
-    stripe_seller: {},
-    stripe_session: {},
-    // wishlist:{
-    //          type:Schema.Types.ObjectId,
-    //          ref:"Product",
-    //      },
     cart: {
       type: Array,
       default: [],
     },
-    address:{
-        type:String,
-    }
+    address: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
