@@ -1,4 +1,5 @@
 import express from "express"
+import cloudinary from "cloudinary"
 const mongoose = require("mongoose")
 const morgan = require("morgan")
 const cors = require("cors")
@@ -8,6 +9,11 @@ require('dotenv').config()
 
 const app = express()
 
+cloudinary.config({
+    cloud_name:process.env.Cloud_name,
+    api_key:process.env.Cloud_key,
+    api_secret:process.env.Cloud_Secret,
+})
 //db
 mongoose.connect(process.env.DATABASE_URL , {})
 .then(()=>console.log("Database Connected"))

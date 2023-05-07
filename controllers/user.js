@@ -307,13 +307,65 @@ export const GoogleSignin = async (req, res) => {
 };
 export const allusers = async (req, res) => {
   try {
-    const user = await User.find();
+    const user = await User.find().select('-password -secret');
     return res.json({
       user,
     });
   } catch (error) {
-    res.status(400).json({
+    res.json({
       error: "User Error",
+    });
+  }
+};
+export const DeleteUser= async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id);
+    return res.json({
+    ok:true
+    });
+  } catch (error) {
+    res.json({
+      error: "Delete User Error",
+    });
+  }
+};
+export const UpdateProfile = async (req, res) => {
+  const { name,password,whatsapp,image,address } = req.body;
+  const data={}
+    if(name)
+    {
+        data.name=name;
+    }
+    if(whatsapp)
+    {
+        data.whatsapp=whatsapp;
+    }
+    if(password)
+    {
+        data.password=await hashpassword(password);
+    }
+    if(image.length<1)
+    {
+        data.image="";
+    }else{
+      data.image=image[0];
+    }
+  if(address)
+  {
+      data.address=address;
+  }
+  const user = await User.findByIdAndUpdate(req.auth._id,data,{
+    new:true
+  })
+  user.password=undefined;
+  user.secret=undefined;
+  try {
+    return res.json({
+      user
+    });
+  } catch (err) {
+    return res.json({
+      error: "Update User Error",
     });
   }
 };

@@ -12,7 +12,12 @@ const CategorySchema =new Schema({
         type:String,
         unique:true,
         lowercase:true,
-
+    },
+    details:{
+        type:String,
+    },
+    ParentCategory:{
+        type:String,
     },
 
 },{timestamps:true});

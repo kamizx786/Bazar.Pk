@@ -5,39 +5,27 @@ const storeSchema = new Schema(
   {
     Storename: {
       type: String,
-      required: true,
       trim: true,
+    },
+    slug:{
+      type: String,
+      unique:true,
+      trim:true
     },
     discription: {
       type: String,
-      required: true,
       trim: true,
-      minlength: [10, "Too Short"],
-      maxlength: [2000, "Too Long"],
     },
     main_pic: {
       url: String,
-      publicId:String,
-      required: true,
+      public_id:String,
     },
     cover_pic: {
       url: String,
-      publicId:String,
-      required: true,
-    },
-    timings: {
-      startTime: {
-        value: Number,
-        amorPm: String,
-      },
-      endTime: {
-        value: Number,
-        amorPm: String,
-      },
+      public_id:String,
     },
     Storewhatsapp: {
       type: Number,
-      required: true,
     },
     Streetaddress: {
       type: String,
@@ -49,8 +37,11 @@ const storeSchema = new Schema(
       type: String,
     },
     location: {
-      type: "Point",
-      GeolocationCoordinates: [],
+        lng:"",
+        lat:""
+    },
+    mapAddress:{
+      type:String,
     },
     category:{
             type:Schema.Types.ObjectId,
@@ -60,17 +51,12 @@ const storeSchema = new Schema(
             type:Schema.Types.ObjectId,
              ref:"User"
          },
-    follower:{
-        type:Schema.Types.ObjectId,
-              ref:"User"
-    },
-    sociallinks:[
-        {
-        facebook:"",
-        insta:""
-        }
-        
-    ],
+     facebook:{
+      type:String
+     },
+     insta:{
+      type:String
+     },
     review:[
         {
             type:Schema.Types.ObjectId,
@@ -78,8 +64,6 @@ const storeSchema = new Schema(
         }
     ],
     stripe_account_id: "",
-    stripe_seller: {},
-    stripe_session: {},
   },
   { timestamps: true }
 );

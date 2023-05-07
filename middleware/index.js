@@ -42,3 +42,21 @@ export const isAdmin=async(req,res,next)=>{
     });
     }
 }
+
+export const isSeller=async(req,res,next)=>{
+    try{
+        const user=await User.findById(req.auth._id);
+        if(user.role!=="Seller"){
+            return res.status(400).json({
+                error:"UnAuthorized Seller"
+            })
+        }else{
+            next();
+        }
+    }catch(error){
+    console.log("Seller Authentication Error");
+    return res.status(400).json({
+        error:"Seller Authentication Error"
+    });
+    }
+}

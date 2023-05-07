@@ -1,4 +1,5 @@
 import express from "express";
+import { isAdmin, requireSigin } from "../middleware";
 const router = express.Router();
 import {
   forgotComplete,
@@ -10,15 +11,18 @@ import {
   login,
   Register,
   RegisterComplete,
+  UpdateProfile,
+  DeleteUser
 } from "../controllers/user";
 router.post("/register-seller", RegisterSeller);
 router.post("/register", Register);
-router.get("/users", allusers);
+router.get("/users",requireSigin,isAdmin,allusers);
+router.delete("/delete-users/:id",requireSigin,isAdmin,DeleteUser);
 router.post("/login", login);
 router.post("/google-signup", GoogleSignup);
 router.post("/google-signin", GoogleSignin);
 router.put("/forgot", Forgotpassword);
 router.put("/forgot/complete", forgotComplete);
 router.put("/register/complete", RegisterComplete);
-
+router.put("/profile-update",requireSigin,UpdateProfile);
 module.exports = router;
