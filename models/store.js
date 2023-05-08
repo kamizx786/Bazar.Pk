@@ -10,11 +10,11 @@ const storeSchema = new Schema(
     slug:{
       type: String,
       unique:true,
-      trim:true
+      trim:true,
+      lowercase:true,
     },
-    discription: {
+    description: {
       type: String,
-      trim: true,
     },
     main_pic: {
       url: String,
@@ -64,6 +64,10 @@ const storeSchema = new Schema(
         }
     ],
     stripe_account_id: "",
+    status:{
+      type:String,
+      default:"InActive",
+    }
   },
   { timestamps: true }
 );
