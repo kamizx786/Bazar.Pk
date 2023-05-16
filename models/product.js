@@ -3,25 +3,32 @@ const { Schema } = mongoose;
 
 const productSchema = new Schema(
   {
-    Name: {
+    name: {
       type: String,
       required: true,
       trim: true,
+    },
+    slug: {
+      type: String,
+      unique: true,
+      lowercase: true,
     },
     discription: {
       type: String,
       required: true,
       trim: true,
-      minlength: [10, "Too Short"],
-      maxlength: [2000, "Too Long"],
+      
     },
-    pic: [
+    gallery_pics: [
       {
         url: String,
         publicId: String,
-        required: true,
       },
     ],
+    feature_pic: {
+        url: String,
+        publicId: String,
+      },
     category: {
       type: Schema.Types.ObjectId,
       ref: "Category",
@@ -30,20 +37,6 @@ const productSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Store",
     },
-    slug: {
-      type: String,
-      unique: true,
-      lowercase: true,
-    },
-    rating: [
-      {
-        star: Number,
-        postedBy: {
-          type: Schema.Types.ObjectId,
-          ref: "User",
-        },
-      },
-    ],
     salePrice: {
       type: Number,
       required: true,
@@ -58,7 +51,20 @@ const productSchema = new Schema(
     },
     totalSold: {
       type: Number,
+      default:"0"
     },
+    unit:{
+      type:String,
+    },
+    rating: [
+      {
+        star: Number,
+        postedBy: {
+          type: Schema.Types.ObjectId,
+          ref: "User",
+        },
+      },
+    ],
   },
   { timestamps: true }
 );

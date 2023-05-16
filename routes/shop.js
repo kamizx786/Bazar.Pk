@@ -6,7 +6,8 @@ import {
   update,
   Delete,
   ApproveShop,
-  DisApproveShop
+  DisApproveShop,
+  Shops
 } from "../controllers/shop";
 import { EditDeleteStore, isSeller,isAdmin,requireSigin } from "../middleware";
 const router = express.Router();
@@ -29,6 +30,7 @@ router.delete(
 );
 router.delete("/admin-shop-delete/delete/:_id", requireSigin, isAdmin, Delete);
 router.get("/shop/AllShops", AllShops);
+router.get("/shop/Shops", Shops);
 router.get("/shop/SellerShops", requireSigin, isSeller, SellerShops);
 
 module.exports = router;

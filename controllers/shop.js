@@ -68,6 +68,21 @@ export const AllShops = async (req, res) => {
     });
   }
 };
+export const Shops = async (req, res) => {
+  try {
+    const shops = await Store.find({status:"Active"})
+      .sort({ createdAt: -1 })
+      .populate("category", "name")
+      .populate("user", "name email _id");
+    return res.json({
+      shops,
+    });
+  } catch (error) {
+    res.json({
+      error: "Fetch Store Failed",
+    });
+  }
+};
 export const SellerShops = async (req, res) => {
   try {
     const shops = await Store.find({ user: req.auth._id })
