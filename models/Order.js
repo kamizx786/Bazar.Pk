@@ -3,12 +3,14 @@ const { Schema } = mongoose;
 
 const orderSchema = new Schema(
   {
-    Product: [{
+    Products: [{
       Product:{
         type: Schema.Types.ObjectId,
         ref: "Product",
       },
-      count:Number,
+      order_quantity:{
+        type:Number
+      },
     }],
     store: {
       type: Schema.Types.ObjectId,
@@ -19,9 +21,21 @@ const orderSchema = new Schema(
       type:String,
       default:"Not Processed",  
     },
+    orderType:{
+     type:String
+    },
     orderBy:{
       type: Schema.Types.ObjectId,
       ref:"User"
+    },
+    order_address:{
+      type:String
+    },
+    paymentType:{
+      type:String
+    },
+    orderContact:{
+      type:Number
     }
   },
   { timestamps: true }

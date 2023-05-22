@@ -9,5 +9,6 @@ router.put("/product/update/:slug",requireSigin,isSeller,EditDeleteProduct,updat
 router.post("/product/delete/:slug",requireSigin,isSeller,EditDeleteProduct,deleteproduct);
 router.get("/product/seller-products",requireSigin,isSeller,SellerProducts);
 router.get("/product/AllProducts",requireSigin,isAdmin,AllProducts);
+router.get("/allProducts",AllProducts);
 // router.get("/product/SingleProduct/:slug",SingleCategory);
 module.exports=router;

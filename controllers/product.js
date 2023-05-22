@@ -76,7 +76,7 @@ export const AllProducts = async (req, res) => {
     const products = await Product.find()
       .sort({ createdAt: -1 })
       .populate("category", "name")
-      .populate("store", "Storename");
+      .populate("store");
     return res.json({
       products,
     });

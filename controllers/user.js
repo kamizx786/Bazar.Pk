@@ -3,6 +3,8 @@ import { nanoid } from "nanoid";
 import { comparepassword, hashpassword } from "../helpers/auth";
 import User from "../models/user";
 const nodemailer = require("nodemailer");
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const queryString=require('querystring')
 //Send Registration Email
 const SendEmail = (mailOptions) => {
   let transporter = nodemailer.createTransport({
@@ -369,3 +371,34 @@ export const UpdateProfile = async (req, res) => {
     });
   }
 };
+
+export const becomeSeller = async (req, res) => {
+  const {_id}=req.auth;
+  try{
+      const user = await User.findById(_id).exec();
+      if(!user.stripe_account_id)
+      {
+          const account= await stripe.accounts.create({type:"express"});
+          user.stripe_account_id=account.id;
+          user.save();
+      }
+      let accountlink= await stripe.accountLinks.create({
+          account:user.stripe_account_id,
+          refresh_url:'https://bazar-pk-sellerside.vercel.app/success',
+          return_url:'https://bazar-pk-sellerside.vercel.app/success',
+          type:"account_onboarding",
+      });
+      
+     accountlink=Object.assign(accountlink,{
+      "stripe_user[email]":user.email,
+     }) ;
+
+     res.json({
+      url:`${accountlink.url}?${queryString.stringify(accountlink)}`});
+
+  }
+  catch(err){
+      console.log(err);
+  }
+
+}
