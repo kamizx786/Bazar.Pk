@@ -98,7 +98,27 @@ export const orders = async (req, res) => {
       });
     }
   };
-  
+  export const Sellerorders = async (req, res) => {
+    try {
+      const shops = await Store.find({ user: req.auth._id });
+      let  orders = [];
+      for (let i = 0; i < shops.length; i++) {
+        const shopOrders = await Order.find({ store: shops[i]._id })
+        .sort({ createdAt: -1 })
+        .populate("orderBy", "name")
+        .populate("store","Storename")
+        .populate("Products.Product");
+        orders = [...orders, ...shopOrders];
+      }
+      return res.json({
+        orders,
+      });
+    } catch (error) {
+      res.json({
+        error: "Fetch Orders Failed",
+      });
+    }
+  };
 // export const update = async (req, res) => {
 //   try {
 //     const { values } = req.body;
