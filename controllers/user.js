@@ -346,12 +346,14 @@ export const UpdateProfile = async (req, res) => {
     {
         data.password=await hashpassword(password);
     }
+    if(image){
     if(image.length<1)
     {
         data.image="";
     }else{
       data.image=image[0];
     }
+  }
   if(address)
   {
       data.address=address;
@@ -384,21 +386,42 @@ export const becomeSeller = async (req, res) => {
       }
       let accountlink= await stripe.accountLinks.create({
           account:user.stripe_account_id,
-          refresh_url:'https://bazar-pk-sellerside.vercel.app/success',
-          return_url:'https://bazar-pk-sellerside.vercel.app/success',
+          refresh_url:'https://bazar-pk-sellerside.vercel.app/callback',
+          return_url:'https://bazar-pk-sellerside.vercel.app/callback',
           type:"account_onboarding",
       });
-      
      accountlink=Object.assign(accountlink,{
       "stripe_user[email]":user.email,
      }) ;
-
      res.json({
       url:`${accountlink.url}?${queryString.stringify(accountlink)}`});
-
   }
   catch(err){
       console.log(err);
   }
 
+}
+
+export const getAccountStatus = async (req, res) => {
+   try{
+       let user = await User.findById(req.auth._id).exec() ;
+       const account= await stripe.accounts.retrieve(user.stripe_account_id);
+       if(!account.charges_enabled)
+       {
+          return res.json({error:"Charges Not Enabled"});
+       }
+       else{
+          const statusUpdated= await User.findByIdAndUpdate(user._id,{
+           stripe_account_id:account,
+          },
+             {new:true}).exec();
+            return res.json({
+              user:statusUpdated
+            })
+       }
+
+   }
+   catch(err){
+    return res.json({error:"Something Went Wrong"});
+   }
 }

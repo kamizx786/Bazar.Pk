@@ -13,10 +13,12 @@ import {
   RegisterComplete,
   UpdateProfile,
   DeleteUser,
-  becomeSeller
+  becomeSeller,
+  getAccountStatus
 } from "../controllers/user";
 router.post("/register-seller", RegisterSeller);
 router.post("/become-seller",requireSigin,becomeSeller);
+router.post("/get-account-status",requireSigin,getAccountStatus);
 router.post("/register", Register);
 router.get("/users",requireSigin,isAdmin,allusers);
 router.delete("/delete-users/:id",requireSigin,isAdmin,DeleteUser);
