@@ -67,8 +67,8 @@ export const Stripecreate = async (req, res) => {
       }
     },
     mode: 'payment',
-    success_url:'https://bazar-pk-sellerside.vercel.app/success',
-    cancel_url:'https://bazar-pk-sellerside.vercel.app/cancel',
+    success_url:'http://127.0.0.1:5173/success',
+    cancel_url:'http://127.0.0.1:5173/cancel',
    });
   // //  return console.log("session",session);
     return res.json({
