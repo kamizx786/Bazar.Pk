@@ -386,8 +386,8 @@ export const becomeSeller = async (req, res) => {
       }
       let accountlink= await stripe.accountLinks.create({
           account:user.stripe_account_id,
-          refresh_url:'https://bazar-pk-sellerside.vercel.app/callback',
-          return_url:'https://bazar-pk-sellerside.vercel.app/callback',
+          refresh_url:'http://127.0.0.1:5174/callback',
+          return_url:'http://127.0.0.1:5174/callback',
           type:"account_onboarding",
       });
      accountlink=Object.assign(accountlink,{
@@ -412,7 +412,7 @@ export const getAccountStatus = async (req, res) => {
        }
        else{
           const statusUpdated= await User.findByIdAndUpdate(user._id,{
-           stripe_account_id:account,
+           stripeSeller:account,
           },
              {new:true}).exec();
             return res.json({

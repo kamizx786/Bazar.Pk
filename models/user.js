@@ -47,7 +47,7 @@ const userSchema = new Schema(
     address: {
       type: String,
     },
-    stripeSession:{},
+    stripeSeller:{},
     stripe_account_id: "",
   },
   { timestamps: true }
