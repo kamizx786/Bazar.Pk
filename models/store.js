@@ -63,7 +63,6 @@ const storeSchema = new Schema(
               ref:"User"
         }
     ],
-    stripe_account_id: "",
     status:{
       type:String,
       default:"InActive",
