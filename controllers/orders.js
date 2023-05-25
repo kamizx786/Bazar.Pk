@@ -31,6 +31,39 @@ export const create = async (req, res) => {
     });
   }
 };
+export const createPurchase = async (req, res) => {
+  try {
+    const { values } = req.body;
+    const orderBy = req.auth._id;
+    values.orderBy =orderBy;
+    const order = await new Order(values).save();
+    return res.json({
+      order
+    });
+  } catch (error) {
+    return res.json({
+      error: "Order Placement Failed",
+    });
+  }
+};
+export const update = async (req, res) => {
+  try {
+    const { status } = req.body;
+    const order = await Order.findByIdAndUpdate(req.params._id,
+     { orderStatus:status},
+      {
+      new:true
+    }
+    );
+    return res.json({
+      order
+    });
+  } catch (error) {
+    return res.json({
+      error: "Order Update Failed",
+    });
+  }
+};
 export const Stripecreate = async (req, res) => {
   try {
     const { values } = req.body;
@@ -84,6 +117,23 @@ export const Stripecreate = async (req, res) => {
 export const orders = async (req, res) => {
     try {
       const orders = await Order.find({orderBy:req.auth._id})
+        .sort({ createdAt: -1 })
+        .populate("orderBy", "name")
+        .populate("store","Storename")
+        .populate("Products.Product");
+    
+      return res.json({
+        orders,
+      });
+    } catch (error) {
+      res.json({
+        error: "Fetch Orders Failed",
+      });
+    }
+  };
+  export const Allorders = async (req, res) => {
+    try {
+      const orders = await Order.find({orderType:"Sales"})
         .sort({ createdAt: -1 })
         .populate("orderBy", "name")
         .populate("store","Storename")
