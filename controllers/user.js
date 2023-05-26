@@ -54,7 +54,7 @@ export const Register = async (req, res) => {
     html: `
         <h4>PLease Confirm your Email</h4>
         <p>Please Confirm Your Registeration.If you do not Confirm Your Registration You cannot Login.Use This Code to Confirm your Regsitration.</p>
-        <p>Go to This Link <b>http://localhost:3000/registerComplete</b></p>
+        <p>Go to This Link <b>https://bazakr-pk-frontend.vercel.app/registerComplete</b></p>
         <b>${secret}</b>
         `, // html body
   };
@@ -97,7 +97,7 @@ export const RegisterSeller = async (req, res) => {
     html: `
         <h4>PLease Confirm your Email</h4>
         <p>Please Confirm Your Registeration.If you do not Confirm Your Registration You cannot Login.Use This Code to Confirm your Regsitration.</p>
-        <p>Go to This Link <b>http://127.0.0.1:5173/register-complete</b></p>
+        <p>Go to This Link <b>https://bazakr-pk-frontend.vercel.app/register-complete</b></p>
         <b>${secret}</b>
         `, // html body
   };
@@ -386,8 +386,8 @@ export const becomeSeller = async (req, res) => {
       }
       let accountlink= await stripe.accountLinks.create({
           account:user.stripe_account_id,
-          refresh_url:'http://127.0.0.1:5174/callback',
-          return_url:'http://127.0.0.1:5174/callback',
+          refresh_url:'https://bazakr-pk-frontend.vercel.app/callback',
+          return_url:'https://bazakr-pk-frontend.vercel.app/callback',
           type:"account_onboarding",
       });
      accountlink=Object.assign(accountlink,{
