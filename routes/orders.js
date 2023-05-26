@@ -10,9 +10,5 @@ router.post("/order/stripe-create",requireSigin,Stripecreate);
 router.get("/orders",requireSigin,orders);
 router.get("/allorders",requireSigin,isAdmin,Allorders);
 router.get("/sellerOrders",requireSigin,Sellerorders)
-// router.put("/product/update/:slug",requireSigin,isSeller,EditDeleteProduct,update);
-// router.post("/product/delete/:slug",requireSigin,isSeller,EditDeleteProduct,deleteproduct);
-// router.get("/product/seller-products",requireSigin,isSeller,SellerProducts);
-// router.get("/product/AllProducts",requireSigin,isAdmin,AllProducts);
-// router.get("/product/SingleProduct/:slug",SingleCategory);
+
 module.exports=router;
