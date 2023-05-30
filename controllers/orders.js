@@ -44,20 +44,6 @@ export const create = async (req, res) => {
     }
     const order= await Order.findById(order._id)
     .populate("orderBy","name,email");
-     // Set up mail options
-  let mailOptions = {
-    from: "Bazar.PK <kamranalizx491@gmail.com>",
-    // sender address
-    to: `${order.orderBy.email}`, // list of receivers
-    subject: "Order Confirmation", // Subject line
-    html: `
-        <h4>HI,${order.orderBy.name}Thanks For Your Order.</h4>
-        <p>Your Order Tracking Id is :#${order._id}</p>
-        <br>
-        <p>Your Order Will be Soon Delivered to You</b></p>
-        `, // html body
-  };
-  SendEmail(mailOptions);
     return res.json({
       orders
     });
