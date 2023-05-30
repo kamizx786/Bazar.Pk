@@ -54,7 +54,8 @@ export const Register = async (req, res) => {
     html: `
         <h4>PLease Confirm your Email</h4>
         <p>Please Confirm Your Registeration.If you do not Confirm Your Registration You cannot Login.Use This Code to Confirm your Regsitration.</p>
-        <p>Go to This Link <b>https://bazakr-pk-frontend.vercel.app/registerComplete</b></p>
+        <p>Go to This Link <b>https://bazakr-pk-frontend.vercel.app/register-complete</b></p>
+        <br>
         <b>${secret}</b>
         `, // html body
   };
