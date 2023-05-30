@@ -28,7 +28,7 @@ export const create = async (req, res) => {
     const { values } = req.body;
     const orderBy = req.auth._id;
     values.orderBy =orderBy;
-    const orders = await new Order(values).save()
+    const order = await new Order(values).save()
     const { Products } = values;
     for (let i = 0; i < Products.length; i++) {
       const product = await Product.findById(Products[i].Product);
@@ -43,7 +43,7 @@ export const create = async (req, res) => {
         })
     }
     return res.json({
-      orders
+      order
     });
   } catch (error) {
     return res.json({
