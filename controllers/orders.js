@@ -42,8 +42,6 @@ export const create = async (req, res) => {
             new:true,
         })
     }
-    const order= await Order.findById(order._id)
-    .populate("orderBy","name,email");
     return res.json({
       orders
     });
