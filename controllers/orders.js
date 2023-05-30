@@ -28,7 +28,7 @@ export const create = async (req, res) => {
     const { values } = req.body;
     const orderBy = req.auth._id;
     values.orderBy =orderBy;
-    const order = await new Order(values).save().populate("orderBy","name,email");
+    const orders = await new Order(values).save()
     const { Products } = values;
     for (let i = 0; i < Products.length; i++) {
       const product = await Product.findById(Products[i].Product);
@@ -42,6 +42,8 @@ export const create = async (req, res) => {
             new:true,
         })
     }
+    const order= await Order.findById(order._id)
+    .populate("orderBy","name,email");
      // Set up mail options
   let mailOptions = {
     from: "Bazar.PK <kamranalizx491@gmail.com>",
@@ -57,7 +59,7 @@ export const create = async (req, res) => {
   };
   SendEmail(mailOptions);
     return res.json({
-      order
+      orders
     });
   } catch (error) {
     return res.json({
