@@ -2,12 +2,33 @@ import Order from "../models/Order";
 import Product from "../models/product";
 import Store from "../models/store";
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const nodemailer = require("nodemailer");
+//Send Registration Email
+const SendEmail = (mailOptions) => {
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true, // use SSL
+    auth: {
+      user: "kamranalizx491@gmail.com",
+      pass: process.env.PASS,
+    },
+  });
+  // Send the email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log("Email Sending Error", error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+};
 export const create = async (req, res) => {
   try {
     const { values } = req.body;
     const orderBy = req.auth._id;
     values.orderBy =orderBy;
-    const order = await new Order(values).save();
+    const order = await new Order(values).save().populate("orderBy","name,email");
     const { Products } = values;
     for (let i = 0; i < Products.length; i++) {
       const product = await Product.findById(Products[i].Product);
@@ -21,7 +42,20 @@ export const create = async (req, res) => {
             new:true,
         })
     }
-   
+     // Set up mail options
+  let mailOptions = {
+    from: "Bazar.PK <kamranalizx491@gmail.com>",
+    // sender address
+    to: `${order.orderBy.email}`, // list of receivers
+    subject: "Order Confirmation", // Subject line
+    html: `
+        <h4>HI,${order.orderBy.name}Thanks For Your Order.</h4>
+        <p>Your Order Tracking Id is :#${order._id}</p>
+        <br>
+        <p>Your Order Will be Soon Delivered to You</b></p>
+        `, // html body
+  };
+  SendEmail(mailOptions);
     return res.json({
       order
     });
