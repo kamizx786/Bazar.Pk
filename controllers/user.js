@@ -387,8 +387,8 @@ export const becomeSeller = async (req, res) => {
       }
       let accountlink= await stripe.accountLinks.create({
           account:user.stripe_account_id,
-          refresh_url:'https://bazakr-pk-frontend.vercel.app/callback',
-          return_url:'https://bazakr-pk-frontend.vercel.app/callback',
+          refresh_url:'https://bazar-pk-sellerside.vercel.app/callback',
+          return_url:'https://bazar-pk-sellerside.vercel.app/callback',
           type:"account_onboarding",
       });
      accountlink=Object.assign(accountlink,{
