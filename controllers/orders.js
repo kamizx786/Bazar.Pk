@@ -74,7 +74,23 @@ export const update = async (req, res) => {
       {
       new:true
     }
+
     );
+    const {Products}=order;
+    if(status==="cancelled"){
+      for (let i = 0; i <Products.length; i++) {
+        const product = await Product.findById(Products[i].Product);
+        const quantity = product.quantity;
+        const updateQuantity = quantity + Products[i].order_quantity;
+        const sold = product.totalSold;
+        const updatedSold = sold - Products[i].order_quantity;
+         const pro=await Product.findByIdAndUpdate(Products[i].Product,{quantity:updateQuantity
+          ,totalSold:updatedSold
+          },{
+              new:true,
+          })
+      }
+    }
     return res.json({
       order
     });
