@@ -57,4 +57,15 @@ export const ContactList = async (req, res) => {
       });
     }
   };
-  
+  export const DeleteContact= async (req, res) => {
+    try {
+      const contact = await Contact.findByIdAndDelete(req.params.id);
+      return res.json({
+      ok:true
+      });
+    } catch (error) {
+      res.json({
+        error: "Delete Contact Error",
+      });
+    }
+  };
