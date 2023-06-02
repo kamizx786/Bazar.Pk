@@ -6,6 +6,7 @@ const router=express.Router();
 router.post("/order/create",requireSigin,create);
 router.post("/order/create-purchase",requireSigin,createPurchase);
 router.put("/order/update/:_id",requireSigin,isSeller,update);
+router.put("/order/cancel/:_id",requireSigin,update);
 router.post("/order/stripe-create",requireSigin,Stripecreate);
 router.get("/orders",requireSigin,orders);
 router.get("/allorders",requireSigin,isAdmin,Allorders);

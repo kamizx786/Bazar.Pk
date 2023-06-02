@@ -10,6 +10,7 @@ export const create = async (req, res) => {
     const categories = await new Category(values).save();
     return res.json(categories);
   } catch (error) {
+    
     return res.json({
       error: "Category Create Failed",
     });
