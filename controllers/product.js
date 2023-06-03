@@ -59,7 +59,8 @@ export const SellerProducts = async (req, res) => {
       const shopProducts = await Product.find({ store: shops[i]._id })
         .sort({ createdAt: -1 })
         .populate("category", "name")
-        .populate("store", "Storename");
+        .populate("store", "Storename")
+        .populate("rating.postedBy","name")
       products = [...products, ...shopProducts];
     }
     return res.json({
