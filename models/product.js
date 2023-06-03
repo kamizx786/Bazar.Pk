@@ -59,6 +59,7 @@ const productSchema = new Schema(
     rating: [
       {
         star: Number,
+        review:String,
         postedBy: {
           type: Schema.Types.ObjectId,
           ref: "User",

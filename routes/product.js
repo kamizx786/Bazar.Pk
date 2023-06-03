@@ -1,10 +1,11 @@
 import express from "express"
 import { create,update,deleteproduct,
-    SellerProducts,AllProducts} from "../controllers/product";
+    SellerProducts,AllProducts,ProductRating} from "../controllers/product";
 import { isSeller,EditDeleteProduct, requireSigin, isAdmin } from "../middleware";
 const router=express.Router();
 
 router.post("/product/create",requireSigin,isSeller,create);
+router.put("/product/rating/:slug",requireSigin,ProductRating);
 router.put("/product/update/:slug",requireSigin,isSeller,EditDeleteProduct,update);
 router.post("/product/delete/:slug",requireSigin,isSeller,EditDeleteProduct,deleteproduct);
 router.get("/product/seller-products",requireSigin,isSeller,SellerProducts);

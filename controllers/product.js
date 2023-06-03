@@ -76,6 +76,7 @@ export const AllProducts = async (req, res) => {
     const products = await Product.find()
       .sort({ createdAt: -1 })
       .populate("category", "name")
+      .populate("rating.postedBy","name")
       .populate("store");
     return res.json({
       products,
@@ -86,22 +87,36 @@ export const AllProducts = async (req, res) => {
     });
   }
 };
+export const ProductRating = async (req, res) => {
+  try {
+    const { star,review } = req.body;
+    const product = await Product.findOne({slug:req.params.slug});
+    const ExistRatings = product.rating.find((r) => {
+      return r.postedBy.toString() === req.auth._id.toString();
+    });
 
-// export const SingleCategory=async(req,res)=>{
-//     try{
-//         const category= await  Category.findOne({slug:req.params.slug});
-//         if(category){
-//            return res.json({category});
-//         }
-//         else{
-//            return res.json({
-//                 error:"Not Found"
-//             })
-//         }
-//     }
-//     catch(error){
-//         res.json({
-//             error:"Create Category Failed"
-//         });
-//     }
-// }
+    if (ExistRatings) {
+      const RatingsUpdated = await Product.updateOne(
+        { rating: { $elemMatch: ExistRatings } },
+        {
+          $set: { "rating.$.star": star, "rating.$.review": review }
+        },
+        { new: true }
+      );      
+      res.json({RatingsUpdated});
+    } else {
+      const RatingsAdded = await Product.findByIdAndUpdate(
+        product._id,
+        {
+          $push: { rating: { postedBy:req.auth._id, star,review } },
+        },
+        { new: true }
+      );
+      res.json({RatingsAdded});
+    }
+  } catch (error) {
+    res.json({
+      error: "Adding Rating Error",
+    });
+  }
+};
