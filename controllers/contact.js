@@ -20,6 +20,30 @@ const SendEmail = (mailOptions) => {
     }
   });
 };
+export const SendReply = async (req, res) => {
+  try {
+    const { values,message } = req.body;
+    let mailOptions = {
+        from: "Bazar.PK <kamranalizx491@gmail.com>",
+        // sender address
+        to: `${values.email}`, // list of receivers
+        subject: `${values.subject}`, // Subject line
+        html: `
+            <h4>Help Desk Bazar.Pk</h4>
+            <p>Hi,${values.name}</p>
+            <p>Hi,${message}</p>
+            `, // html body
+      };
+      SendEmail(mailOptions);
+    return res.json({
+      ok: true,
+    });
+  } catch (error) {
+    return res.json({
+      error: "Sending Email Problem",
+    });
+  }
+};
 export const create = async (req, res) => {
   try {
     const { values } = req.body;
