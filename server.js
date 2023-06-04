@@ -25,7 +25,9 @@ app.use(cors({
     origin:["http://127.0.0.1:5173",
 "https://bazar-pk-sellerside.vercel.app",
 "https://bazakr-pk-frontend.vercel.app",
-"http://127.0.0.1:5174"
+"http://127.0.0.1:5174",
+"http://localhost:5173"
+
 ]
 }))
 //Request Limit
