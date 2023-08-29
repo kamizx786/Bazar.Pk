@@ -22,14 +22,8 @@ mongoose.connect(process.env.DATABASE_URL , {})
 app.use(morgan("dev"))
 //resolve Frontend and Backend
 app.use(cors({
-    origin:["http://127.0.0.1:5173",
-"https://bazar-pk-sellerside.vercel.app",
-"https://bazakr-pk-frontend.vercel.app",
-"http://127.0.0.1:5174",
-"http://localhost:5173"
-
-]
-}))
+    origin: "*"
+}));
 //Request Limit
 app.use(bodyparser.json({limit:"5mb"}))
 //Routes
