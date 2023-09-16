@@ -1,9 +1,12 @@
-import express from "express"
-import { SiteSettings, createandupdate} from "../controllers/settings";
-import { isAdmin, requireSigin } from "../middleware";
-const router=express.Router();
+import express from "express";
+import {
+  SiteSettings,
+  createandupdate,
+} from "../controllers/settings.controller";
+import { isAdmin, requireSigin } from "../middleware/index.middleware";
+const router = express.Router();
 
-router.put("/updateSettings/:_id",requireSigin,isAdmin,createandupdate);
-router.get("/siteSettings",SiteSettings);
+router.put("/updateSettings/:_id", requireSigin, isAdmin, createandupdate);
+router.get("/siteSettings", SiteSettings);
 
-module.exports=router;
+module.exports = router;

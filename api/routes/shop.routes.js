@@ -7,9 +7,14 @@ import {
   Delete,
   ApproveShop,
   DisApproveShop,
-  Shops
-} from "../controllers/shop";
-import { EditDeleteStore, isSeller,isAdmin,requireSigin } from "../middleware";
+  Shops,
+} from "../controllers/shop.controller";
+import {
+  isSeller,
+  EditDeleteStore,
+  isAdmin,
+  requireSigin,
+} from "../middleware/index.middleware";
 const router = express.Router();
 router.put("/shop/approve/:_id", requireSigin, isAdmin, ApproveShop);
 router.put("/shop/disapprove/:_id", requireSigin, isAdmin, DisApproveShop);

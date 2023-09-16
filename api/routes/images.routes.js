@@ -1,7 +1,7 @@
 import express from "express";
-import { handleimage } from "../controllers/imageUpload";
-import { requireSigin } from "../middleware";
+import { handleimage } from "../controllers/imageUpload.controller";
 import formidable from "express-formidable";
+import { requireSigin } from "../middleware/index.middleware";
 const router = express.Router();
 
 router.post(

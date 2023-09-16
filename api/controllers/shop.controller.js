@@ -1,4 +1,4 @@
-import Store from "../models/store";
+import Store from "../models/store.model";
 import slugify from "slugify";
 const nodemailer = require("nodemailer");
 export const create = async (req, res) => {
@@ -70,7 +70,7 @@ export const AllShops = async (req, res) => {
 };
 export const Shops = async (req, res) => {
   try {
-    const shops = await Store.find({status:"Active"})
+    const shops = await Store.find({ status: "Active" })
       .sort({ createdAt: -1 })
       .populate("category", "name")
       .populate("user", "name email _id");
@@ -154,7 +154,7 @@ export const DisApproveShop = async (req, res) => {
     const status = "InActive";
     const store = await Store.findByIdAndUpdate(
       { _id: req.params._id },
-     { status},
+      { status },
       {
         new: true,
       }

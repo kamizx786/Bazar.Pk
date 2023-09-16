@@ -1,5 +1,5 @@
-import Product from "../models/product";
-import Store from "../models/store";
+import Product from "../models/product.model";
+import Store from "../models/store.model";
 import slugify from "slugify";
 export const create = async (req, res) => {
   try {
@@ -60,7 +60,7 @@ export const SellerProducts = async (req, res) => {
         .sort({ createdAt: -1 })
         .populate("category", "name")
         .populate("store", "Storename")
-        .populate("rating.postedBy","name")
+        .populate("rating.postedBy", "name");
       products = [...products, ...shopProducts];
     }
     return res.json({
@@ -77,7 +77,7 @@ export const AllProducts = async (req, res) => {
     const products = await Product.find()
       .sort({ createdAt: -1 })
       .populate("category", "name")
-      .populate("rating.postedBy","name")
+      .populate("rating.postedBy", "name")
       .populate("store");
     return res.json({
       products,
@@ -90,8 +90,8 @@ export const AllProducts = async (req, res) => {
 };
 export const ProductRating = async (req, res) => {
   try {
-    const { star,review } = req.body;
-    const product = await Product.findOne({slug:req.params.slug});
+    const { star, review } = req.body;
+    const product = await Product.findOne({ slug: req.params.slug });
     const ExistRatings = product.rating.find((r) => {
       return r.postedBy.toString() === req.auth._id.toString();
     });
@@ -100,20 +100,20 @@ export const ProductRating = async (req, res) => {
       const RatingsUpdated = await Product.updateOne(
         { rating: { $elemMatch: ExistRatings } },
         {
-          $set: { "rating.$.star": star, "rating.$.review": review }
+          $set: { "rating.$.star": star, "rating.$.review": review },
         },
         { new: true }
-      );      
-      res.json({RatingsUpdated});
+      );
+      res.json({ RatingsUpdated });
     } else {
       const RatingsAdded = await Product.findByIdAndUpdate(
         product._id,
         {
-          $push: { rating: { postedBy:req.auth._id, star,review } },
+          $push: { rating: { postedBy: req.auth._id, star, review } },
         },
         { new: true }
       );
-      res.json({RatingsAdded});
+      res.json({ RatingsAdded });
     }
   } catch (error) {
     res.json({
