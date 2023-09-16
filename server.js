@@ -27,7 +27,7 @@ app.use(cors({
 //Request Limit
 app.use(bodyparser.json({limit:"5mb"}))
 //Routes
-fs.readdirSync("./routes").map((r)=>app.use("/api", require(`./routes/${r}`)));
+fs.readdirSync("./api/routes").map((r)=>app.use("/api", require(`./api/routes/${r}`)));
 
 const port= process.env.PORT||8000;
 
