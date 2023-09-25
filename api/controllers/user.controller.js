@@ -109,7 +109,7 @@ export const RegisterSeller = async (req, res) => {
   } catch (err) {
     console.log("Register Seller Error", err);
     return res.json({
-      error: "Register Seller Error,Plase Try Again",
+      error: "Register Seller Error,Please Try Again",
     });
   }
 };

@@ -15,11 +15,13 @@ import {
   getAccountStatus,
 } from "../controllers/user.controller";
 import { isAdmin, requireSigin } from "../middleware/index.middleware";
+import { validateInput } from "../middleware/validateInput.middleware";
+import { registerValidation } from "../validators/user.validator";
 const router = express.Router();
-router.post("/register-seller", RegisterSeller);
+router.post("/register-seller", validateInput(registerValidation, "BODY"), RegisterSeller);
 router.post("/become-seller", requireSigin, becomeSeller);
 router.post("/get-account-status", requireSigin, getAccountStatus);
-router.post("/register", Register);
+router.post("/register", validateInput(registerValidation, "BODY"), Register);
 router.get("/users", requireSigin, isAdmin, allusers);
 router.delete("/delete-users/:id", requireSigin, isAdmin, DeleteUser);
 router.post("/login", login);
