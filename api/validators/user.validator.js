@@ -15,13 +15,7 @@ const registerValidation = Joi.object({
 const loginValidation = Joi.object({
  
   email: Joi.string().email().trim().required(),
-  password: Joi.string()
-    .min(8)
-    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%^*#])[A-Za-z\d@$!%^*#]+$/)
-    .required()
-    .messages({
-      'string.min': 'Password must be at least 8 characters long',
-      'string.pattern.base': 'Password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character (@, $, !, %, ^, *, #)',
-    }),
+  password: Joi.string().required()
+   
 });
 module.exports = { registerValidation, loginValidation };
