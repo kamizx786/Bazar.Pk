@@ -168,3 +168,35 @@ export const DisApproveShop = async (req, res) => {
     });
   }
 };
+
+
+// Controller function to find stores within a 5 km radius
+export const findStoresWithinRadius = async (req, res) => {
+  try {
+    const { longitude, latitude } = req.query; // Get longitude and latitude from request query parameters
+    
+    if (!longitude || !latitude) {
+      return res.status(400).json({ message: 'Please provide both longitude and latitude.' });
+    }
+
+    // Define the coordinates as a point
+    const userCoordinates = {
+      longitude: parseFloat(longitude),
+      latitude: parseFloat(latitude),
+    };
+
+    // Find stores within a 5 km radius using $geoWithin
+    const stores = await Store.find({
+      location: {
+        $geoWithin: {
+          $centerSphere: [[userCoordinates.longitude, userCoordinates.latitude], 5 / 6371], // 5 km radius (6371 is the Earth's radius in km)
+        },
+      },
+    });
+
+    res.status(200).json({ stores });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};

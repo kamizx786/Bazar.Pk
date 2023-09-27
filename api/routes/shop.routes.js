@@ -8,6 +8,7 @@ import {
   ApproveShop,
   DisApproveShop,
   Shops,
+  findStoresWithinRadius,
 } from "../controllers/shop.controller";
 import {
   isSeller,
@@ -36,6 +37,7 @@ router.delete(
 router.delete("/admin-shop-delete/delete/:_id", requireSigin, isAdmin, Delete);
 router.get("/shop/AllShops", AllShops);
 router.get("/shop/Shops", Shops);
+router.get("/shop/findNearby", findStoresWithinRadius);
 router.get("/shop/SellerShops", requireSigin, isSeller, SellerShops);
 
 module.exports = router;
