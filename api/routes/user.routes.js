@@ -18,6 +18,7 @@ import {
   forgotCompleteValidation,
   forgotValidation,
   loginValidation,
+  registerCompleteValidation,
   registerValidation,
 } from "../validators/user.validator";
 
@@ -40,6 +41,6 @@ router.put(
   validateInput(forgotCompleteValidation, "BODY"),
   forgotComplete
 );
-router.put("/register/complete", RegisterComplete);
+router.put("/register/complete",validateInput(registerCompleteValidation, "BODY"), RegisterComplete);
 router.put("/profile-update", requireSigin, UpdateProfile);
 module.exports = router;

@@ -70,6 +70,7 @@ export const Register = async (req, res) => {
     });
   }
 };
+//RegisterSeller
 export const RegisterSeller = async (req, res) => {
   const { name, email, password } = req.body;
   const exist = await User.findOne({ email });
@@ -113,6 +114,7 @@ export const RegisterSeller = async (req, res) => {
     });
   }
 };
+//RegisterComplete
 export const RegisterComplete = async (req, res) => {
   try {
     const { email, secret } = req.body;
@@ -143,7 +145,7 @@ export const RegisterComplete = async (req, res) => {
     });
   }
 };
-
+//login
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -181,6 +183,7 @@ export const login = async (req, res) => {
     });
   }
 };
+//Forgotpassword
 export const Forgotpassword = async (req, res) => {
   try {
     const { email } = req.body;
@@ -216,6 +219,7 @@ export const Forgotpassword = async (req, res) => {
     });
   }
 };
+//forgotComplete
 export const forgotComplete = async (req, res) => {
   try {
     const { email, Newpassword, secret } = req.body;
@@ -253,6 +257,7 @@ export const forgotComplete = async (req, res) => {
     });
   }
 };
+//allusers
 export const allusers = async (req, res) => {
   try {
     const user = await User.find().select("-password -secret");
@@ -265,6 +270,7 @@ export const allusers = async (req, res) => {
     });
   }
 };
+//DeleteUser
 export const DeleteUser = async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
@@ -277,6 +283,7 @@ export const DeleteUser = async (req, res) => {
     });
   }
 };
+//UpdateProfile
 export const UpdateProfile = async (req, res) => {
   const { name, password, whatsapp, image, address } = req.body;
   const data = {};
@@ -314,7 +321,7 @@ export const UpdateProfile = async (req, res) => {
     });
   }
 };
-
+//becomeSeller
 export const becomeSeller = async (req, res) => {
   const { _id } = req.auth;
   try {
@@ -340,7 +347,7 @@ export const becomeSeller = async (req, res) => {
     console.log(err);
   }
 };
-
+//getAccountStatus
 export const getAccountStatus = async (req, res) => {
   try {
     let user = await User.findById(req.auth._id).exec();

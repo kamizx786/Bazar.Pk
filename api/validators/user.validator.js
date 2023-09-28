@@ -25,13 +25,23 @@ const forgotValidation = Joi.object({
   email: Joi.string().email().required(),
 });
 
-// Validation schema for the /forgot/complete route
 const forgotCompleteValidation = Joi.object({
   email: Joi.string().email().required(),
   Newpassword: Joi.string()
     .min(8)
-    .pattern(new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[!@#$%^&*])'))
+    .pattern(new RegExp("^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[!@#$%^&*])"))
     .required(),
   secret: Joi.string().required(),
 });
-module.exports = { registerValidation, loginValidation,forgotValidation,forgotCompleteValidation };
+
+const registerCompleteValidation = Joi.object({
+  email: Joi.string().email().required(),
+  secret: Joi.string().required(),
+});
+module.exports = {
+  registerValidation,
+  registerCompleteValidation,
+  loginValidation,
+  forgotValidation,
+  forgotCompleteValidation,
+};
