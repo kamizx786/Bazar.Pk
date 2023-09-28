@@ -4,8 +4,6 @@ import {
   allusers,
   RegisterSeller,
   Forgotpassword,
-  GoogleSignin,
-  GoogleSignup,
   login,
   Register,
   RegisterComplete,
@@ -17,6 +15,8 @@ import {
 import { isAdmin, requireSigin } from "../middleware/index.middleware";
 import { validateInput } from "../middleware/validateInput.middleware";
 import {
+  forgotCompleteValidation,
+  forgotValidation,
   loginValidation,
   registerValidation,
 } from "../validators/user.validator";
@@ -34,8 +34,12 @@ router.post("/register", validateInput(registerValidation, "BODY"), Register);
 router.get("/users", requireSigin, isAdmin, allusers);
 router.delete("/delete-users/:id", requireSigin, isAdmin, DeleteUser);
 router.post("/login", validateInput(loginValidation, "BODY"), login);
-router.put("/forgot", Forgotpassword);
-router.put("/forgot/complete", forgotComplete);
+router.put("/forgot", validateInput(forgotValidation, "BODY"), Forgotpassword);
+router.put(
+  "/forgot/complete",
+  validateInput(forgotCompleteValidation, "BODY"),
+  forgotComplete
+);
 router.put("/register/complete", RegisterComplete);
 router.put("/profile-update", requireSigin, UpdateProfile);
 module.exports = router;

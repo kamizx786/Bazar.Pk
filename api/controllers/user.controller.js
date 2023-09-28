@@ -253,61 +253,6 @@ export const forgotComplete = async (req, res) => {
     });
   }
 };
-export const GoogleSignup = async (req, res) => {
-  const { name, email } = req.user;
-  try {
-    const user = await User.findOne({ email });
-    if (user) {
-      return res.status(400).json({
-        error: "User Already Exist Please Login",
-      });
-    } else {
-      const newUser = await new User({
-        name,
-        email,
-        status: "Confirmed",
-      }).save();
-      const token = jwt.sign({ _id: newUser._id }, process.env.JWT_SECRET, {
-        expiresIn: "7d",
-      });
-      return res.json({
-        token,
-        newUser,
-      });
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({
-      error: "User Error",
-    });
-  }
-};
-export const GoogleSignin = async (req, res) => {
-  const { email } = req.user;
-  try {
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({
-        error: "User Doesn't Exist Please Register",
-      });
-    } else {
-      const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: "7d",
-      });
-      user.password = undefined;
-      user.secret = undefined;
-      return res.json({
-        token,
-        user,
-      });
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({
-      error: "User Error",
-    });
-  }
-};
 export const allusers = async (req, res) => {
   try {
     const user = await User.find().select("-password -secret");
