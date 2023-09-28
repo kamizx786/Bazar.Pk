@@ -12,12 +12,12 @@ const productValidation = Joi.object({
     )
     .min(3)
     .required(),
-  feature_pic: Joi.object({
-    url: Joi.string(),
-    publicId: Joi.string(),
-  }).required(),
-  category: Joi.string(),
-  store: Joi.string(),
+    feature_pic: Joi.object({  
+        url: Joi.string(),
+        publicId: Joi.string(),
+      }).required(),
+  category: Joi.string().required(),
+  store: Joi.string().required(),
   salePrice: Joi.number()
     .greater(Joi.ref("purchasePrice"))
     .min(1)
