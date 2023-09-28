@@ -12,7 +12,7 @@ const SendEmail = (mailOptions) => {
     port: 465,
     secure: true, // use SSL
     auth: {
-      user: "kamranalizx491@gmail.com",
+      user: "farisirfanbit19.03@gmail.com",
       pass: process.env.PASS,
     },
   });
@@ -46,7 +46,7 @@ export const Register = async (req, res) => {
   });
   // Set up mail options
   let mailOptions = {
-    from: "Bazar.PK <kamranalizx491@gmail.com>",
+    from: "Bazar.PK <farisirfanbit19.03@gmail.com>",
     // sender address
     to: `${email}`, // list of receivers
     subject: "Confirm Your Registeration", // Subject line
@@ -91,7 +91,7 @@ export const RegisterSeller = async (req, res) => {
   });
   // Set up mail options
   let mailOptions = {
-    from: "Bazar.PK <kamranalizx491@gmail.com>",
+    from: "Bazar.PK <farisirfanbit19.03@gmail.com>",
     // sender address
     to: `${email}`, // list of receivers
     subject: "Confirm Your Registeration", // Subject line
@@ -197,7 +197,7 @@ export const Forgotpassword = async (req, res) => {
     await User.findByIdAndUpdate(user._id, { secret }).exec();
     // Set up mail options
     let mailOptions = {
-      from: "Bazar.PK <kamranalizx491@gmail.com>",
+      from: "Bazar.PK <farisirfanbit19.03@gmail.com>",
       // sender address
       to: `${email}`, // list of receivers
       subject: "Reset Your Password", // Subject line

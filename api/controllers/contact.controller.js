@@ -7,7 +7,7 @@ const SendEmail = (mailOptions) => {
     port: 465,
     secure: true, // use SSL
     auth: {
-      user: "kamranalizx491@gmail.com",
+      user: "farisirfanbit19.03@gmail.com",
       pass: process.env.PASS,
     },
   });
@@ -24,7 +24,7 @@ export const SendReply = async (req, res) => {
   try {
     const { values, message } = req.body;
     let mailOptions = {
-      from: "Bazar.PK <kamranalizx491@gmail.com>",
+      from: "Bazar.PK <farisirfanbit19.03@gmail.com>",
       // sender address
       to: `${values.email}`, // list of receivers
       subject: `${values.subject}`, // Subject line
@@ -49,7 +49,7 @@ export const create = async (req, res) => {
     const { values } = req.body;
     const contact = await new Contact(values).save();
     let mailOptions = {
-      from: "Bazar.PK <kamranalizx491@gmail.com>",
+      from: "Bazar.PK <farisirfanbit19.03@gmail.com>",
       // sender address
       to: `${values.email}`, // list of receivers
       subject: `${values.subject}`, // Subject line

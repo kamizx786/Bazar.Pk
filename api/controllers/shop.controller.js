@@ -104,7 +104,7 @@ const SendEmail = (mailOptions) => {
     port: 465,
     secure: true, // use SSL
     auth: {
-      user: "kamranalizx491@gmail.com",
+      user: "farisirfanbit19.03@gmail.com",
       pass: process.env.PASS,
     },
   });
@@ -129,7 +129,7 @@ export const ApproveShop = async (req, res) => {
   );
   // Set up mail options
   let mailOptions = {
-    from: "Bazar.PK <kamranalizx491@gmail.com>",
+    from: "Bazar.PK <farisirfanbit19.03@gmail.com>",
     // sender address
     to: `${storebyUser.user.email}`, // list of receivers
     subject: `${storebyUser.Storename} is live`, // Subject line
