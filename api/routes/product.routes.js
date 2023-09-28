@@ -21,7 +21,7 @@ const router = express.Router();
 router.post("/product/create",validateInput(productValidation, "BODY"), requireSigin, isSeller, create);
 router.put("/product/rating/:slug", requireSigin, ProductRating);
 router.put(
-  "/product/update/:slug",
+  "/product/update/:slug",validateInput(productValidation, "BODY"),
   requireSigin,
   isSeller,
   EditDeleteProduct,
