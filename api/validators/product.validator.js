@@ -7,6 +7,7 @@ const productValidation = Joi.object({
     .items(
       Joi.object({
         url: Joi.string(),
+        _id: Joi.any(),
         publicId: Joi.string(),
       })
     )
@@ -26,6 +27,6 @@ const productValidation = Joi.object({
   purchasePrice: Joi.number().min(1).required(),
   quantity: Joi.number().min(1).required(),
   unit: Joi.string(),
-});
+}).unknown(true);
 
 module.exports = { productValidation };
