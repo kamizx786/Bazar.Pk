@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 const productValidation = Joi.object({
   name: Joi.string().required(),
-  description: Joi.string().required(),
+  discription: Joi.string().required(),
   gallery_pics: Joi.array()
     .items(
       Joi.object({
