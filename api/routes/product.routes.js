@@ -14,9 +14,11 @@ import {
   requireSigin,
   isAdmin,
 } from "../middleware/index.middleware";
+import { validateInput } from "../middleware/validateInput.middleware";
+import { productValidation } from "../validators/product.validator";
 const router = express.Router();
 
-router.post("/product/create", requireSigin, isSeller, create);
+router.post("/product/create",validateInput(productValidation, "BODY"), requireSigin, isSeller, create);
 router.put("/product/rating/:slug", requireSigin, ProductRating);
 router.put(
   "/product/update/:slug",
