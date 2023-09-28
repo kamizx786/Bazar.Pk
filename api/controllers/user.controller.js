@@ -12,7 +12,7 @@ const SendEmail = (mailOptions) => {
     port: 465,
     secure: true, // use SSL
     auth: {
-      user: "farisirfanbit19.03@gmail.com",
+      user: "Farisirfanbit19.03@gmail.com",
       pass: process.env.PASS,
     },
   });
