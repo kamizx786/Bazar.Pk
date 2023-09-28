@@ -13,8 +13,8 @@ const productValidation = Joi.object({
     .min(3)
     .required(),
     feature_pic: Joi.object({  
-        url: Joi.string(),
-        publicId: Joi.string(),
+        url: Joi.string().required(),
+        publicId: Joi.string().required(),
       }).required(),
   category: Joi.string().required(),
   store: Joi.string().required(),
